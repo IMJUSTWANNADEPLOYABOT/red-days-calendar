@@ -1,111 +1,382 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+*, *::before, *::after {
+    box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
 }
 
-body {
-  margin: 0;
-}
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
+.notify {
     font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+    background-color: green;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+.error {
+    font-size: 20px;
+    background-color: red;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
+.formHeading {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    align-items: center;
+}
+
+.formContainer {
+    /* 1. Центрирование и размеры */
+    margin: 40px auto;
+    width: 90%;            /* Чуть меньше, чтобы были отступы по бокам на мобилках */
+    max-width: 400px;      /* 500px часто многовато для простой формы */
+    
+    /* 2. Внутреннее пространство (Важно!) */
+    padding: 30px;         /* Чтобы контент не прилипал к краям */
+    
+    /* 3. Внешний вид */
+    background-color: #ffffff; /* Белый фон контейнера */
+    border: 1px solid #eaeaea; /* Тонкая светло-серая рамка вместо черной */
+    border-radius: 12px;       /* Мягкие скругленные углы (лучше в px, а не в %) */
+    
+    /* 4. Эффект объема (Тени) */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Еле заметная дорогая тень */
+    
+    /* 5. Выравнивание всего внутри */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form input {
+  width: 100%;
+  padding: 12px 16px;
+  margin: 8px 0;
+  display: inline-block;
+  
+  /* Убираем стандартную грубую рамку */
+  border: 1px solid #d1d1d1;
+  border-radius: 8px;
+  
+  /* Шрифт и плавность */
+  font-size: 16px;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Чтобы padding не раздувал ширину */
+  outline: none; /* Убираем стандартный синий контур браузера */
+}
+
+/* Эффект при клике (фокусе) на инпут */
+.form input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1); /* Мягкое свечение вокруг */
+  background-color: #fff;
+}
+
+/* Стиль для текста внутри (placeholder) */
+.form input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+.form button {
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  padding: 14px 20px;
+  margin: 15px 0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  
+  /* Плавный переход для всех эффектов */
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Эффект при наведении мышки */
+.form button:hover:not(:disabled) {
+  background-color: #0056b3;
+  transform: translateY(-1px); /* Легкое всплытие */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+
+.form button:active:not(:disabled) {
+  transform: translateY(1px); /* Кнопка уходит вниз */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень уменьшается */
+  filter: brightness(0.9); /* Кнопка чуть темнеет, как будто в тени */
+}
+
+/* Стиль для заблокированной кнопки (когда форма не валидна) */
+.form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.toggle-btn {
+    background: none;       /* Прозрачный фон */
+    border: none;           /* Убираем рамки */
+    color: #007bff;         /* Синий цвет как у ссылок */
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 20px;       /* Отступ от формы сверху */
+    padding: 10px;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+/* Эффект при наведении */
+.toggle-btn:hover {
+    color: #0056b3;         /* Цвет становится темнее */
+    text-decoration: underline; /* Появляется подчеркивание */
+    opacity: 0.8;
+}
+
+/* Эффект при нажатии */
+.toggle-btn:active {
+    transform: scale(0.98); /* Кнопка чуть-чуть сжимается */
+}
+
+
+
+
+
+
+.calendar-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px; /* было 10px */
+    font-family: 'Trebuchet MS', sans-serif;
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 450px; /* Делаем такой же, как у сетки */
+    align-items: center;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); 
+    gap: 2px; /* было 4px */
+    width: 100%;
+    max-width: 450px;
+    box-sizing: border-box;
+}
+
+.day-cell {
+    position: relative;
+    aspect-ratio: 1/1; /* Сохраняем квадратность */
+    min-height: auto;  /* Убираем жесткую высоту 60px */
+    width: 100%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 8px; /* Чуть меньше скругление для мобилок */
+    font-size: 14px;    /* Немного уменьшаем шрифт цифр */
+}
+
+.fade { color: #ccc; } /* Соседние месяцы */
+
+.today {
+    border: 2px solid #ff4d4d; /* Рамка по периметру */
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.nav-btn {
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #eee;
+    background: white;
+    cursor: pointer;
+}
+
+.weekday {
+    display:flex;
+    justify-content: center;
+}
+
+
+
+/* СТИЛИ ПОП-АПА */
+
+
+/* Затемнение фона */
+.sheet-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+/* Сама плашка */
+.sheet-content {
+    position: fixed;   /* добавь */
+    bottom: 0;         /* добавь */
+    left: 0;           /* добавь */
+    right: 0;          /* добавь */
+    width: 100%;
+    background: white;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+    padding-bottom: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+/* Полоска сверху для красоты (типа можно тянуть) */
+.drag-handle {
+    width: 40px;
+    height: 5px;
+    background: #ccc;
+    border-radius: 10px;
+    margin: 0 auto 15px;
+}
+
+.sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-x {
+    background: #eee;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.option-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+    cursor: pointer;
+}
+
+
+.option-row.nested {
+    background-color: #fafafa;
+    border-left: 3px solid #ff4d4d; /* Выделим цветом для внимания */
+    margin-left: 10px;
+    padding-left: 15px;
+}
+
+.option-row.active {
+    background-color: #fff0f5; /* Легкий розовый фон для активных строк */
+}
+
+/* Ячейка */
+.day-cell {
+    position: relative; /* Чтобы позиционировать иконки */
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5px;
+    border: 1px solid #f0f0f0;
+    transition: background 0.3s;
+}
+
+/* Красный фон для месячных */
+.day-cell.period-bg {
+    background-color: #ffebee; /* Нежно-красный */
+    color: #c62828;
+}
+
+/* Контейнер для иконок внутри ячейки */
+.cell-icons {
+    display: flex;
+    gap: 2px;
+    margin-top: auto; /* Прижимаем к низу ячейки */
+    padding-bottom: 4px;
+    font-size: 12px; /* Иконки должны быть маленькими */
+}
+
+/* Восклицательный знак перед огоньком */
+.warning-mark {
+    color: #ff4d4d;
+    font-weight: bold;
+    font-size: 10px;
+    margin-right: -2px;
+}
+
+/* Стиль для числа месяца */
+.day-number {
+    font-weight: 500;
+}
+
+/* Сегодняшний день */
+.day-cell.today {
+    border: 2px solid #ff4d4d;
+    font-weight: bold;
+}
+
+
+
+
+@media (max-width: 400px) {
+    .calendar-grid {
+        gap: 1px;
+    }
+
+    .calendar-page {
+        padding: 4px 2px;
+    }
+
+    .day-cell {
+        font-size: 12px;
+        border-radius: 4px;
+    }
+
+    .calendar-header {
+        padding: 0 2px;
+    }
+      .day-cell {
+        font-size: 11px;
+        border-radius: 4px;
+        padding-top: 2px;
+    }
+
+    .cell-icons {
+        font-size: 10px;
+    }
 }
